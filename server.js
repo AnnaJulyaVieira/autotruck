@@ -36,24 +36,9 @@ app.use(express.static('public'));
 
 // Rota principal - serve index.html
 app.get('/', (req, res) => {
-    const possiblePaths = [
-        path.join(__dirname, 'index.html'),
-        path.join(__dirname, 'public', 'index.html'),
-        path.join(__dirname, 'src', 'index.html')
-    ];
-    
-    let indexPath = possiblePaths.find(p => fs.existsSync(p));
-    
-    if (indexPath) {
-        res.sendFile(indexPath);
-    } else {
-        res.send(`
-            <h1>Servidor funcionando!</h1>
-            <p>Arquivos na pasta:</p>
-            <pre>${fs.readdirSync(__dirname).join('\n')}</pre>
-        `);
-    }
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
+
 
 // Log todas as requisições para debug
 app.use((req, res, next) => {
