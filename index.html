@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="main-header">
+        <p class="btnVoltar" onclick="window.location.href = 'home.html';" ><i class="ri-arrow-left-line"></i> Voltar</p>
+    <h1 class="main-title">Auto Truck</h1>
+    <div class="header-spacer"></div>
+</div>
+    <div class="header">
+        <div class="header-info">
+            <h1>Agenda hórario</h1>
+            <!--             <div class="rating">
+                <svg class="star" viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg> -->
+            <!-- <span class="rating-text">4.8 (176)</span>
+                <span class="pro-badge">PRO BARBER</span> -->
+        </div>
+    </div>
+    <!--       <button class="heart-btn">
+            <svg class="heart-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+            </svg>
+        </button> -->
+    </div>
+
+    <!--     <div class="tabs">
+        <button class="tab active" data-tab="booking">Booking</button>
+        <button class="tab" data-tab="portfolio">Portfolio</button>
+        <button class="tab" data-tab="reviews">Reviews</button>
+    </div> -->
+
+    <div class="content">
+        <div class="month-navigation">
+            <button class="month-nav-btn">
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="15,18 9,12 15,6" />
+                </svg>
+            </button>
+            <h2 class="month-title" id="monthTitle">Agosto 2025</h2>
+            <button class="month-nav-btn">
+                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="9,18 15,12 9,6" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="calendar">
+            <button class="day-btn selected" data-day="12">
+                <span class="day-number">12</span>
+                <span class="day-name">SEG.</span>
+            </button>
+            <button class="day-btn" data-day="13">
+                <span class="day-number">13</span>
+                <span class="day-name">TER.</span>
+            </button>
+            <button class="day-btn" data-day="14">
+                <span class="day-number">14</span>
+                <span class="day-name">QUA.</span>
+            </button>
+            <button class="day-btn" data-day="15">
+                <span class="day-number">15</span>
+                <span class="day-name">QUI.</span>
+            </button>
+            <button class="day-btn" data-day="16">
+                <span class="day-number">16</span>
+                <span class="day-name">SEX.</span>
+            </button>
+            <button class="day-btn" data-day="17">
+                <span class="day-number">17</span>
+                <span class="day-name">SÁB.</span>
+            </button>
+        </div>
+
+        <div class="time-section">
+            <h3 class="time-label">Hórarios dispónivel</h3>
+            <div class="time-grid">
+                <button class="time-btn" data-time="11:00">11:00</button>
+                <button class="time-btn" data-time="11:30">11:30</button>
+                <button class="time-btn selected" data-time="12:00">12:00</button>
+                <button class="time-btn" data-time="12:30">12:30</button>
+            </div>
+        </div>
+
+        <div class="booking-summary">
+            <div class="summary-content">
+                <div class="summary-info">
+                    <div class="status-dot"></div> <!-- Remove o ícone daqui -->
+                    <div>
+                        <div class="booking-date" id="bookingDate">
+                            <i class="ri-calendar-line"></i> <!-- Move o ícone para cá -->
+                            12 Agosto, Segunda-feira
+                        </div>
+                        <div class="booking-time" id="bookingTime">12:00 - 13:15</div>
+                    </div>
+                </div>
+            </div>
+            <button class="book-btn" id="agendarBtn"  onclick="confirmarAgendamento()">
+                Agendar
+            </button>
+        </div>
+
+
+    </div>
+    <script>
+     let selectedDay = 12;
+let selectedTime = '12:00';
+
+// ✅ VARIÁVEIS QUE FALTAVAM - ADICIONADAS
+let currentMonth = 7; // Agosto (0-indexado)
+const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 
+                   'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+
+// Função para atualizar o resumo do agendamento
+function updateBookingSummary() {
+    const dayNames = {
+        12: 'Segunda-feira',
+        13: 'Terça-feira',
+        14: 'Quarta-feira',
+        15: 'Quinta-feira',
+        16: 'Sexta-feira',
+        17: 'Sábado'
+    };
+
+    document.getElementById('bookingDate').innerHTML = `
+        <i class="ri-calendar-line"></i>
+        ${selectedDay} Agosto, ${dayNames[selectedDay]}
+    `;
+    document.getElementById('bookingTime').textContent = `${selectedTime} - 13:15`;
+}
+
+// Seleção de dias
+document.querySelectorAll('.day-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedDay = parseInt(this.dataset.day);
+        updateBookingSummary();
+    });
+});
+
+// Seleção de horários
+document.querySelectorAll('.time-btn').forEach(btn => {
+    btn.addEventListener('click', function () {
+        document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('selected'));
+        this.classList.add('selected');
+        selectedTime = this.dataset.time;
+        updateBookingSummary();
+    });
+});
+
+// Navegação de abas - ✅ MANTIDO IGUAL
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', function () {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+
+// ✅ FUNÇÃO PRINCIPAL CORRIGIDA
+function confirmarAgendamento() {
+    if (!selectedDay || !selectedTime) {
+        alert('Por favor, selecione uma data e horário.');
+        return;
+    }
+    
+    // Calcular horário final
+    const [hours, minutes] = selectedTime.split(':').map(Number);
+    const endTime = new Date();
+    endTime.setHours(hours, minutes + 75);
+    const endTimeStr = endTime.toTimeString().slice(0, 5);
+    
+    const dayNames = {
+        12: 'Segunda-feira',
+        13: 'Terça-feira', 
+        14: 'Quarta-feira',
+        15: 'Quinta-feira',
+        16: 'Sexta-feira',
+        17: 'Sábado'
+    };
+    
+    // Dados do agendamento
+    const agendamentoData = {
+        dia: selectedDay,
+        mes: monthNames[currentMonth], // ✅ AGORA FUNCIONA - variável definida
+        diaSemana: dayNames[selectedDay],
+        horarioInicio: selectedTime,
+        horarioFim: endTimeStr
+    };
+    
+
+    localStorage.setItem('agendamentoData', JSON.stringify(agendamentoData));
+    window.location.href = 'confirma.html';
+    
+    
+    // ✅ OPÇÃO 2: Para artifacts do Claude (sem localStorage)
+ /*    alert(`Agendamento confirmado!\nData: ${selectedDay} de ${monthNames[currentMonth]}\nHorário: ${selectedTime} - ${endTimeStr}\nDia: ${dayNames[selectedDay]}`);
+     */
+    // Ou se você quiser usar um modal, precisa adicionar o HTML do modal
+    console.log('Agendamento confirmado:', agendamentoData);
+}
+
+// ❌ REMOVIDO - causava erro pois elemento não existe
+// document.querySelector('.heart-btn').addEventListener('click', function () {
+//     this.style.color = this.style.color === 'red' ? 'white' : 'red';
+// });
+    </script>
+</body>
+
+</html>
