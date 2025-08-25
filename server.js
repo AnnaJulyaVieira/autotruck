@@ -46,6 +46,10 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get('/confirma.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'confirma.html'));
+});
+
 const ARQUIVO = path.join(__dirname, 'agendamentos.json');
 
 // === Rota de teste ===
