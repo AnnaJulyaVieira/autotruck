@@ -12,7 +12,7 @@ const app = express();
 
 // Configurações do Twilio - SUBSTITUA PELOS SEUS DADOS REAIS
 const TWILIO_ACCOUNT_SID = 'ACb59aba2fb067d9c7a70a5b7ee3faa3b6'; // Ex: 'AC...'
-const TWILIO_AUTH_TOKEN = '66131393e6416db70120066dc5e4fa2f';
+const TWILIO_AUTH_TOKEN = 'c5f1fee157bca70b75259bee0d9b7b2a';
 const TWILIO_PHONE_NUMBER = '+17349845843'; // Ex: '+15551234567'
 
 // Inicializa cliente Twilio
