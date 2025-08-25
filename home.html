@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <title>Auto Truck - Lavagem Automotiva</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            color: white;
+            max-width: 400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* TOP HEADER */
+        .top-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            background: rgba(0, 0, 0, 0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .top-header-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mini-logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #ffd902 0%, #ffed4a 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mini-logo i {
+            color: #0f172a;
+            font-size: 16px;
+        }
+
+        .brand-mini {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffd902;
+        }
+
+        .top-header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .account-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #e2e8f0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .account-btn:hover {
+            background: rgba(255, 217, 2, 0.1);
+            border-color: rgba(255, 217, 2, 0.3);
+            color: #ffd902;
+        }
+
+
+        /* HERO HEADER */
+        .header {
+            position: relative;
+            text-align: center;
+            padding: 60px 24px 40px;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(255, 217, 2, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 217, 2, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+            animation: headerGlow 6s ease-in-out infinite alternate;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #ffd902 0%, #ffed4a 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            box-shadow:
+                0 20px 40px rgba(255, 217, 2, 0.3),
+                0 0 0 4px rgba(255, 217, 2, 0.2),
+                inset 0 2px 0 rgba(255, 255, 255, 0.3);
+            animation: logoFloat 4s ease-in-out infinite;
+            position: relative;
+        }
+
+        .logo::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ffd902, #3b82f6, #ffd902);
+            border-radius: 26px;
+            z-index: -1;
+            opacity: 0;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        .logo i {
+            color: #0f172a;
+            font-size: 48px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        .brand-name {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffd902 0%, #ffed4a 50%, #fbbf24 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 4px 20px rgba(255, 217, 2, 0.3);
+            letter-spacing: -1px;
+        }
+
+        .brand-tagline {
+            font-size: 18px;
+            color: #cbd5e1;
+            margin-bottom: 32px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .header-stats {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 24px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ffd902;
+            display: block;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            padding: 40px 24px 20px;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            z-index: 10;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 200%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 217, 2, 0.05), transparent);
+            transform: translateX(-50%);
+            animation: heroShine 8s ease-in-out infinite;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.1;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 17px;
+            color: #94a3b8;
+            margin-bottom: 40px;
+            line-height: 1.4;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            width: 100%;
+            background: #ffed4a;
+            color: #0f172a;
+            border: none;
+            padding: 20px 24px;
+            border-radius: 18px;
+            font-size: 19px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+          /*   box-shadow:
+                0 20px 40px rgba(255, 217, 2, 0.5),
+                0 0 0 3px rgba(255, 217, 2, 0.3); */
+        }
+
+        .cta-button:active {
+            transform: translateY(-1px);
+        }
+
+        .quick-info {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .info-item {
+            flex: 1;
+            border: solid 1px #ffed4a;
+            text-align: center;
+            padding: 12px 8px;
+          
+            border-radius: 12px;
+        
+        }
+
+        .info-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            display: block;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        /* REVIEWS CAROUSEL - CORRIGIDO */
+        .reviews {
+            padding: 0 24px 40px;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            width: 100%;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+            width: 400%;
+            /* 4 slides * 100% */
+        }
+
+        .review-card {
+            width: 25%;
+            /* 100% / 4 slides */
+            flex: 0 0 25%;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .reviewer-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffd902 0%, #ffed4a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: #0f172a;
+            flex-shrink: 0;
+        }
+
+        .reviewer-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .reviewer-name {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .reviewer-date {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .review-rating {
+            display: flex;
+            gap: 2px;
+            flex-shrink: 0;
+        }
+
+        .star {
+            color: #ffd902;
+            font-size: 16px;
+        }
+
+        .star.empty {
+            color: #374151;
+        }
+
+        .review-text {
+            color: #e2e8f0;
+            line-height: 1.6;
+            font-size: 14px;
+            margin-bottom: 16px;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .review-service {
+            background: rgba(255, 217, 2, 0.1);
+            color: #ffd902;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #ffd902;
+            transform: scale(1.2);
+        }
+
+        /* MODAL LOGIN */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 20px;
+            padding: 32px 24px;
+            max-width: 340px;
+            width: 90%;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 4px;
+            border-radius: 4px;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: #ffd902;
+        }
+
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ffd902;
+            background: rgba(15, 23, 42, 0.9);
+            box-shadow: 0 0 0 3px rgba(255, 217, 2, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #64748b;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ffd902 0%, #ffed4a 100%);
+            color: #0f172a;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 20px rgba(255, 217, 2, 0.3);
+        }
+
+        .login-options {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .forgot-password {
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #ffd902;
+        }
+
+        .register-link {
+            margin-top: 12px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .register-link a {
+            color: #ffd902;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+
+
+        /* CONTACT INFO */
+        .contact-info {
+            padding: 20px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            margin: 0 24px 24px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .contact-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .contact-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .contact-item i {
+            color: #ffd902;
+            width: 20px;
+            text-align: center;
+        }
+
+        .contact-item span {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 24px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 20;
+        }
+
+        .footer-text {
+            color: #64748b;
+            font-size: 12px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes logoFloat {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            25% {
+                transform: translateY(-8px) rotate(1deg);
+            }
+
+            75% {
+                transform: translateY(-3px) rotate(-1deg);
+            }
+        }
+
+        @keyframes logoGlow {
+
+            0%,
+            100% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes headerGlow {
+            0% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes heroShine {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateX(-200px);
+                opacity: 0;
+            }
+
+            50% {
+                transform: translateX(-50%) translateX(0px);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* RESPONSIVE ADJUSTMENTS */
+        @media (max-width: 350px) {
+            .brand-name {
+                font-size: 28px;
+            }
+
+            .hero-title {
+                font-size: 24px;
+            }
+
+            .cta-button {
+                padding: 16px 20px;
+                font-size: 16px;
+            }
+
+            .review-card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- TOP HEADER -->
+    <div class="top-header">
+        <div class="top-header-left">
+            <!--             <div class="mini-logo">
+                <i class="ri-car-washing-line"></i>
+            </div> -->
+            <span class="brand-mini">Auto Truck</span>
+        </div>
+
+        <div class="top-header-right">
+            <button class="account-btn" onclick="abrirModalLogin()">
+                <i class="ri-user-line"></i>
+                Entrar
+            </button>
+
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="header">
+      <!--   <div class="header-content">
+          
+            <h1 class="brand-name">Auto Truck</h1>
+            <p class="brand-tagline">Lavagem automotiva premium</p>
+
+            <div class="header-stats">
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Clientes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">4.9★</span>
+                    <span class="stat-label">Avaliação</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">2 Anos</span>
+                    <span class="stat-label">Experiência</span>
+                </div>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- HERO SECTION -->
+    <div class="hero">
+        <div class="hero-content">
+            <h2 class="hero-title">Seu carro impecável em minutos.</h2>
+            <p class="hero-subtitle">Agendamento online, qualidade profissional e o melhor custo-benefício da região</p>
+
+            <button class="cta-button" onclick="window.location.href='index.html'">
+                <!--  <i class="ri-calendar-line"></i> -->
+                Agendar Horário
+            </button>
+
+            <div class="quick-info">
+                <div class="info-item">
+                    <span class="info-value">75min</span>
+                    <span class="info-label">Duração</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value">R$ 35</span>
+                    <span class="info-label">A partir de</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-value">Online</span>
+                    <span class="info-label">Agendamento</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- REVIEWS CAROUSEL -->
+    <div class="reviews">
+        <h3 class="section-title">
+
+            O que nossos clientes dizem
+        </h3>
+
+        <div class="carousel-container">
+            <div class="carousel-track" id="carouselTrack">
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">M</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Maria Silva</div>
+                            <div class="reviewer-date">15 de Agosto</div>
+                        </div>
+                        <div class="review-rating">
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                        </div>
+                    </div>
+                    <p class="review-text">
+                        "Excelente serviço! Meu carro ficou impecável. A equipe é muito profissional e o agendamento
+                        online é super prático. Recomendo demais!"
+                    </p>
+                    <div class="review-service">Lavagem Completa</div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">J</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">João Santos</div>
+                            <div class="reviewer-date">12 de Agosto</div>
+                        </div>
+                        <div class="review-rating">
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                        </div>
+                    </div>
+                    <p class="review-text">
+                        "Melhor lavagem da região! Preço justo, qualidade excepcional. O enceramento deixou meu carro
+                        brilhando por semanas. Virei cliente fiel!"
+                    </p>
+                    <div class="review-service">Enceramento</div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">A</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Ana Costa</div>
+                            <div class="reviewer-date">10 de Agosto</div>
+                        </div>
+                        <div class="review-rating">
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-line star empty"></i>
+                        </div>
+                    </div>
+                    <p class="review-text">
+                        "Atendimento rápido e eficiente. Agendei pelo app e não precisei esperar. A lavagem ficou ótima,
+                        só o interior poderia ter mais atenção."
+                    </p>
+                    <div class="review-service">Lavagem Simples</div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="reviewer-avatar">R</div>
+                        <div class="reviewer-info">
+                            <div class="reviewer-name">Roberto Lima</div>
+                            <div class="reviewer-date">8 de Agosto</div>
+                        </div>
+                        <div class="review-rating">
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                            <i class="ri-star-fill star"></i>
+                        </div>
+                    </div>
+                    <p class="review-text">
+                        "Fantástico! Produto de qualidade, funcionários educados e preço acessível. Minha família toda
+                        lava os carros aqui. Nota 10!"
+                    </p>
+                    <div class="review-service">Lavagem Completa</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-nav">
+            <div class="nav-dot active" data-slide="0"></div>
+            <div class="nav-dot" data-slide="1"></div>
+            <div class="nav-dot" data-slide="2"></div>
+            <div class="nav-dot" data-slide="3"></div>
+        </div>
+    </div>
+
+
+
+    <!-- CONTACT INFO -->
+    <div class="contact-info">
+        <h3 class="contact-title">
+
+            Contato e Localização
+        </h3>
+
+        <div class="contact-item">
+            <i class="ri-phone-line"></i>
+            <span>(31) 99673-2141</span>
+        </div>
+
+        <div class="contact-item">
+            <i class="ri-map-pin-line"></i>
+            <span>Avenida Dom Pedro II 1748, Carlos Prates</span>
+        </div>
+
+        <div class="contact-item">
+            <i class="ri-time-line"></i>
+            <span>Seg-Sex: 8h às 17h | Sáb: 8h às 12h</span>
+        </div>
+    </div>
+
+    <!-- MODAL DE LOGIN -->
+    <div class="modal-overlay" id="modalLogin">
+        <div class="modal-content">
+            <button class="modal-close" onclick="fecharModalLogin()">
+                <i class="ri-close-line"></i>
+            </button>
+
+            <div class="modal-header">
+                <h2 class="modal-title">Entrar na sua conta</h2>
+                <p class="modal-subtitle">Acesse seus agendamentos e histórico</p>
+            </div>
+
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <input type="email" class="form-input" placeholder="Seu e-mail" required>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" class="form-input" placeholder="Sua senha" required>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Entrar
+                </button>
+            </form>
+
+            <div class="login-options">
+                <a href="#" class="forgot-password">Esqueceu sua senha?</a>
+                <div class="register-link">
+                    Não tem conta? <a href="#" onclick="abrirModalCadastro()">Cadastre-se</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p class="footer-text">
+            © 2025 Auto Truck - Lavagem Automotiva<br>
+            Todos os direitos reservados
+        </p>
+    </div>
+
+    <script>
+
+        // LOGIN FORM
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = this.querySelector('input[type="email"]').value;
+            const senha = this.querySelector('input[type="password"]').value;
+
+            if (email && senha) {
+                const btn = this.querySelector('.login-btn');
+                btn.innerHTML = 'Entrando...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+
+                    // Conta admin hardcoded
+                    // Conta admin hardcoded
+                    if (email === "admin@autotruck.com" && senha === "admin123") {
+                        alert("Bem-vindo, Admin!");
+                        fecharModalLogin();
+
+                        // Redirecionar para dashboard
+                        window.location.href = 'dashboard.html'; // <- coloque o caminho da sua tela de dashboard
+                    } else {
+                        alert(`Login realizado com sucesso!\nE-mail: ${email}`);
+                        document.querySelector('.account-btn').innerHTML = `
+        <i class="ri-user-3-line"></i>
+        Minha Conta
+    `;
+                    }
+
+
+                    this.reset();
+                    btn.innerHTML = 'Entrar';
+                    btn.disabled = false;
+                }, 1500);
+            }
+        });
+
+        // TOP HEADER FUNCTIONS
+        function abrirModalLogin() {
+            document.getElementById('modalLogin').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharModalLogin() {
+            document.getElementById('modalLogin').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function abrirMenu() {
+            alert('Menu em desenvolvimento!');
+        }
+
+        function abrirModalCadastro() {
+            fecharModalLogin();
+            alert('Modal de cadastro em desenvolvimento!');
+        }
+
+        // LOGIN FORM
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = this.querySelector('input[type="email"]').value;
+            const senha = this.querySelector('input[type="password"]').value;
+
+            if (email && senha) {
+                const btn = this.querySelector('.login-btn');
+                btn.innerHTML = 'Entrando...';
+                btn.disabled = true;
+
+                setTimeout(() => {
+                    alert(`Login realizado com sucesso!\nE-mail: ${email}`);
+                    fecharModalLogin();
+
+                    document.querySelector('.account-btn').innerHTML = `
+                        <i class="ri-user-3-line"></i>
+                        Minha Conta
+                    `;
+
+                    this.reset();
+                    btn.innerHTML = 'Entrar';
+                    btn.disabled = false;
+                }, 1500);
+            }
+        });
+
+        // MODAL CONTROLS
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                fecharModalLogin();
+            }
+        });
+
+        document.getElementById('modalLogin').addEventListener('click', function (e) {
+            if (e.target === this) {
+                fecharModalLogin();
+            }
+        });
+
+        // CTA BUTTON ANIMATION
+        document.querySelector('.cta-button').addEventListener('click', function () {
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 150);
+        });
+
+        // CAROUSEL FUNCTIONALITY - CORRIGIDO
+        let currentSlide = 0;
+        const totalSlides = 4;
+        const carouselTrack = document.getElementById('carouselTrack');
+        const navDots = document.querySelectorAll('.nav-dot');
+
+        function updateCarousel() {
+            // Calcular a posição correta baseado no slide atual
+            const translateX = -currentSlide * 25; // 25% por slide (100% / 4 slides)
+            carouselTrack.style.transform = `translateX(${translateX}%)`;
+
+            // Atualizar dots de navegação
+            navDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        // Auto-play do carousel (a cada 5 segundos)
+        let autoplayInterval = setInterval(nextSlide, 5000);
+
+        // Parar autoplay quando hover
+        const carouselContainer = document.querySelector('.carousel-container');
+        carouselContainer.addEventListener('mouseenter', () => {
+            clearInterval(autoplayInterval);
+        });
+
+        carouselContainer.addEventListener('mouseleave', () => {
+            autoplayInterval = setInterval(nextSlide, 5000);
+        });
+
+        // Navegação por dots
+        navDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateCarousel();
+
+                // Reiniciar autoplay
+                clearInterval(autoplayInterval);
+                autoplayInterval = setInterval(nextSlide, 5000);
+            });
+        });
+
+        // Touch/swipe support para mobile
+        let startX = 0;
+        let isDragging = false;
+        let startTime = 0;
+
+        carouselTrack.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startTime = Date.now();
+            isDragging = true;
+
+            // Parar autoplay durante o toque
+            clearInterval(autoplayInterval);
+        }, { passive: true });
+
+        carouselTrack.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            // Permitir scroll vertical
+        }, { passive: true });
+
+        carouselTrack.addEventListener('touchend', (e) => {
+            if (!isDragging) return;
+
+            const endX = e.changedTouches[0].clientX;
+            const diffX = startX - endX;
+            const timeDiff = Date.now() - startTime;
+
+            // Verificar se foi um swipe válido (mínimo 30px e máximo 300ms)
+            if (Math.abs(diffX) > 30 && timeDiff < 300) {
+                if (diffX > 0) {
+                    // Swipe left - próximo slide
+                    nextSlide();
+                } else {
+                    // Swipe right - slide anterior
+                    prevSlide();
+                }
+            }
+
+            isDragging = false;
+
+            // Reiniciar autoplay
+            autoplayInterval = setInterval(nextSlide, 5000);
+        }, { passive: true });
+
+        // Animação de entrada para os elementos
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos para animação
+        document.querySelectorAll('.benefit-item, .carousel-container').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Efeito parallax sutil no header - CORRIGIDO
+        let ticking = false;
+
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const header = document.querySelector('.header');
+            if (header && scrolled < window.innerHeight) {
+                // Limitar o parallax para evitar sobreposição
+                const parallaxValue = Math.min(scrolled * 0.3, 100);
+                header.style.transform = `translateY(${parallaxValue}px)`;
+            }
+            ticking = false;
+        }
+
+        window.addEventListener('scroll', function () {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
+            }
+        });
+
+        // Inicializar carousel
+        updateCarousel();
+    </script>
+</body>
+
+</html>

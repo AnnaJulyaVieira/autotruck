@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Agendamentos</title>
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: #111827;
+        color: white;
+        margin: 0;
+        padding: 24px;
+    }
+    h1 {
+        margin-bottom: 24px;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #1f2937;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    th, td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #374151;
+    }
+    th {
+        background-color: #374151;
+    }
+    tr:hover {
+        background-color: #2563eb33;
+    }
+    .empty {
+        text-align: center;
+        margin-top: 50px;
+        color: #9ca3af;
+    }
+</style>
+</head>
+<body>
+<h1>Dashboard de Agendamentos</h1>
+<table id="agendamentoTable">
+    <thead>
+        <tr>
+            <th>Data</th>
+            <th>Horário</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>Placa</th>
+            <th>Serviço</th>
+            <th>Valor</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<div class="empty" id="emptyMessage" style="display:none;">Nenhum agendamento encontrado.</div>
+
+<script>
+async function carregarAgendamentos() {
+    try {
+        const response = await fetch('agendamentos.json');
+        const agendamentos = await response.json();
+
+        const tbody = document.querySelector('#agendamentoTable tbody');
+        tbody.innerHTML = '';
+
+        if (!agendamentos || agendamentos.length === 0) {
+            document.getElementById('emptyMessage').style.display = 'block';
+            return;
+        }
+
+        document.getElementById('emptyMessage').style.display = 'none';
+
+        agendamentos.forEach(a => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${a.data}</td>
+                <td>${a.horario}</td>
+                <td>${a.nome}</td>
+                <td>${a.cpf}</td>
+                <td>${a.telefone}</td>
+                <td>${a.placa}</td>
+                <td>${a.servico}</td>
+                <td>${a.valor}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (error) {
+        console.error('Erro ao carregar agendamentos:', error);
+        document.getElementById('emptyMessage').textContent = 'Erro ao carregar os agendamentos.';
+        document.getElementById('emptyMessage').style.display = 'block';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', carregarAgendamentos);
+</script>
+</body>
+</html>

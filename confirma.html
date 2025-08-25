@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <title>Confirmar Agendamento</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #111827;
+            color: white;
+            max-width: 400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 24px 24px 0;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: #9ca3af;
+            cursor: pointer;
+            padding: 8px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .back-btn:hover {
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .header p {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+
+        .appointment-summary {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 0 24px 24px;
+            border: 1px solid #374151;
+        }
+
+        .summary-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .calendar-icon {
+            width: 40px;
+            height: 40px;
+            background: #ffd902;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .calendar-icon i {
+            color: #111827;
+            font-size: 18px;
+        }
+
+        .summary-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #f3f4f6;
+        }
+
+        .appointment-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date-time {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .date {
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .time {
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        .edit-btn {
+            background: none;
+            border: 1px solid #4b5563;
+            color: #9ca3af;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .edit-btn:hover {
+            border-color: #6b7280;
+            color: white;
+        }
+
+        .form-container {
+            flex: 1;
+            padding: 0 24px;
+        }
+
+        .form-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #f3f4f6;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #f3f4f6;
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 16px;
+            background: #1f2937;
+            border: 2px solid #374151;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #ffd902;
+            background: #1f2937;
+            box-shadow: 0 0 0 3px rgba(255, 217, 2, 0.1);
+        }
+
+        .form-input::placeholder {
+            color: #6b7280;
+        }
+
+        .input-icon {
+            position: relative;
+        }
+
+        .input-icon i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6b7280;
+            font-size: 16px;
+            pointer-events: none;
+        }
+
+        .input-icon .form-input {
+            padding-left: 44px;
+        }
+
+        .form-error {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-group.error .form-input {
+            border-color: #ef4444;
+        }
+
+        .form-group.error .form-error {
+            display: block;
+        }
+
+        .bottom-section {
+            background: white;
+            border-radius: 20px 20px 0 0;
+            padding: 24px;
+            margin-top: 24px;
+        }
+
+        .total-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        .total-label {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .total-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            background: #ffd902;
+            color: #111827;
+            border: none;
+            padding: 18px;
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 217, 2, 0.3);
+        }
+
+        .confirm-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(255, 217, 2, 0.4);
+        }
+
+        .confirm-btn:active {
+            transform: translateY(0);
+        }
+
+        .confirm-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .privacy-text {
+            color: #6b7280;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 12px;
+            line-height: 1.4;
+        }
+
+        /* ESTILOS DO POPUP */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-overlay.show {
+            display: flex;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .popup-content {
+            background: white;
+            border-radius: 24px;
+            padding: 32px 24px;
+            max-width: 320px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            transform: scale(0.8);
+            animation: popupScale 0.3s ease-out forwards;
+        }
+
+        .popup-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            animation: checkBounce 0.6s ease-out 0.2s both;
+        }
+
+        .popup-icon i {
+            color: white;
+            font-size: 36px;
+        }
+
+        .popup-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #111827;
+            margin-bottom: 12px;
+        }
+
+        .popup-message {
+            font-size: 16px;
+            color: #6b7280;
+            line-height: 1.5;
+            margin-bottom: 32px;
+        }
+
+        .popup-close-btn {
+            width: 100%;
+            background: #ffd902;
+            color: #111827;
+            border: none;
+            padding: 14px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Status do SMS */
+        .sms-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .sms-status.sending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .sms-status.sent {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .sms-status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes popupScale {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes checkBounce {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <button class="back-btn" onclick="window.location.href='index.html'">
+            <i class="ri-arrow-left-line"></i>
+            Voltar
+        </button>
+
+        <h1>Confirmar Agendamento</h1>
+        <p>Preencha seus dados para finalizar o agendamento</p>
+    </div>
+
+    <div class="appointment-summary">
+        <div class="summary-header">
+            <div class="calendar-icon">
+                <i class="ri-calendar-check-line"></i>
+            </div>
+            <div class="summary-title">Informações do agendamento</div>
+        </div>
+
+        <div class="appointment-details">
+            <div class="date-time">
+                <div class="date" id="selectedDate">12 de Agosto, Segunda-feira</div>
+                <div class="time" id="selectedTime">12:00 - 13:15 (1h 15min)</div>
+            </div>
+            <button class="edit-btn" onclick="voltarAgendamento()">
+                <i class="ri-edit-line" style="margin-right: 4px;"></i>
+                Alterar
+            </button>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h2 class="form-title">Seus dados</h2>
+
+        <form id="confirmacaoForm">
+            <div class="form-group">
+                <label for="nome" class="form-label">Nome completo</label>
+                <div class="input-icon">
+                    <i class="ri-user-line"></i>
+                    <input type="text" id="nome" name="nome" class="form-input" placeholder="Digite seu nome completo"
+                        required>
+                </div>
+                <div class="form-error">Por favor, digite seu nome completo</div>
+            </div>
+
+            <div class="form-group">
+                <label for="cpf" class="form-label">CPF</label>
+                <div class="input-icon">
+                    <i class="ri-id-card-line"></i>
+                    <input type="text" id="cpf" name="cpf" class="form-input" placeholder="000.000.000-00" required
+                        maxlength="14">
+                </div>
+                <div class="form-error">Por favor, digite um CPF válido</div>
+            </div>
+
+            <div class="form-group">
+                <label for="telefone" class="form-label">Telefone</label>
+                <div class="input-icon">
+                    <i class="ri-phone-line"></i>
+                    <input type="text" id="telefone" name="telefone" class="form-input" placeholder="(11) 99999-9999"
+                        required maxlength="15">
+                </div>
+                <div class="form-error">Por favor, digite um telefone válido</div>
+            </div>
+
+            <div class="form-group">
+                <label for="placa" class="form-label">Placa do veículo</label>
+                <div class="input-icon">
+                    <i class="ri-car-line"></i>
+                    <input type="text" id="placa" name="placa" class="form-input" placeholder="ABC-1234 ou ABC1D23"
+                        required maxlength="8">
+                </div>
+                <div class="form-error">Por favor, digite uma placa válida</div>
+            </div>
+        </form>
+    </div>
+
+    <div class="bottom-section">
+        <div class="total-section">
+            <div>
+                <div class="total-label">Serviço</div>
+                <div style="font-size: 16px; color: #111827; margin-top: 2px;">Lavagem Completa</div>
+            </div>
+            <div class="total-value">R$ 35,00</div>
+        </div>
+
+        <button type="button" class="confirm-btn" id="confirmBtn" onclick="confirmarAgendamento()" disabled>
+            <i class="ri-check-line" style="margin-right: 8px;"></i>
+            Confirmar Agendamento
+        </button>
+
+        <p class="privacy-text">
+            Ao confirmar, você concorda com nossos termos de uso.<br>
+            Seus dados estão protegidos e não serão compartilhados.
+        </p>
+    </div>
+
+    <!-- POPUP DE CONFIRMAÇÃO -->
+    <div class="popup-overlay" id="popupConfirmacao">
+        <div class="popup-content">
+            <div class="popup-icon">
+                <i class="ri-check-line"></i>
+            </div>
+            <h2 class="popup-title">Agendamento Confirmado!</h2>
+            <p class="popup-message">Seu agendamento foi realizado com sucesso.</p>
+
+            <!-- Status do SMS -->
+            <div class="sms-status sending" id="smsStatus">
+                <i class="ri-loader-4-line" style="animation: spin 1s linear infinite;"></i>
+                Enviando SMS de confirmação...
+            </div>
+
+            <!-- Botões de ação -->
+            <div style="display: flex; gap: 8px; margin-bottom: 16px;">
+                <button class="popup-close-btn" onclick="fecharPopup()" style="flex: 1;">
+                    Entendi
+                </button>
+                <button class="popup-close-btn" onclick="tentarEnviarNovamente()" id="retryBtn"
+                    style="flex: 1; background: #6b7280; display: none;">
+                    Tentar Novamente
+                </button>
+            </div>
+
+            <!-- Toggle para modo de teste -->
+          <!--   <div style="text-align: center; margin-bottom: 16px;">
+                <label
+                    style="display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 12px; color: #6b7280;">
+                    <input type="checkbox" id="modoTeste" checked style="transform: scale(0.8);">
+                    Modo simulação (para testes)
+                </label>
+            </div> -->
+        </div>
+    </div>
+
+    <script>
+const SMS_CONFIG = {
+    backendUrl: '' // caminho relativo
+};
+
+
+// Teste se o servidor está acessível
+console.log('Testando conexão com servidor...');
+fetch(`${SMS_CONFIG.backendUrl}/test`)
+    .then(r => r.json())
+    .then(data => console.log('✅ Servidor conectado:', data))
+    .catch(err => console.error('❌ Erro de conexão:', err));
+
+// ===== ELEMENTOS DO FORMULÁRIO =====
+const form = document.getElementById('confirmacaoForm');
+const nomeInput = document.getElementById('nome');
+const cpfInput = document.getElementById('cpf');
+const telefoneInput = document.getElementById('telefone');
+const placaInput = document.getElementById('placa');
+const confirmBtn = document.getElementById('confirmBtn');
+const popupOverlay = document.getElementById('popupConfirmacao');
+
+let dadosUltimoAgendamento = null;
+
+// ===== FUNÇÕES DE FORMATAÇÃO =====
+function formatCPF(value) {
+    return value.replace(/\D/g, '')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d)/, '$1.$2')
+        .replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+}
+
+function formatTelefone(value) {
+    return value.replace(/\D/g, '')
+        .replace(/(\d{2})(\d)/, '($1) $2')
+        .replace(/(\d{5})(\d)/, '$1-$2');
+}
+
+function formatPlaca(value) {
+    value = value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+    if (value.length <= 7) {
+        return value.replace(/([A-Z]{3})(\d{1,4})/, '$1-$2');
+    } else {
+        return value.replace(/([A-Z]{3})(\d{1})([A-Z]{1})(\d{1,2})/, '$1$2$3$4');
+    }
+}
+
+// ===== FUNÇÕES DE VALIDAÇÃO =====
+function validaCPF(cpf) {
+    cpf = cpf.replace(/[^\d]+/g, '');
+    if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false;
+
+    const digits = cpf.split('').map(el => +el);
+    const rest = (count) => (digits.slice(0, count - 1)
+        .reduce((soma, el, index) => (soma + el * (count - index)), 0) * 10) % 11 % 10;
+
+    return rest(10) === digits[9] && rest(11) === digits[10];
+}
+
+function validaTelefone(telefone) {
+    const tel = telefone.replace(/\D/g, '');
+    return tel.length === 10 || tel.length === 11;
+}
+
+function validaPlaca(placa) {
+    const p = placa.replace(/[^A-Z0-9]/g, '');
+    return /^[A-Z]{3}[0-9]{4}$/.test(p) || /^[A-Z]{3}[0-9]{1}[A-Z]{1}[0-9]{2}$/.test(p);
+}
+
+function validarFormulario() {
+    let isValid = true;
+
+    if (nomeInput.value.trim().length < 2) {
+        nomeInput.parentElement.parentElement.classList.add('error');
+        isValid = false;
+    } else nomeInput.parentElement.parentElement.classList.remove('error');
+
+    if (!validaCPF(cpfInput.value)) {
+        cpfInput.parentElement.parentElement.classList.add('error');
+        isValid = false;
+    } else cpfInput.parentElement.parentElement.classList.remove('error');
+
+    if (!validaTelefone(telefoneInput.value)) {
+        telefoneInput.parentElement.parentElement.classList.add('error');
+        isValid = false;
+    } else telefoneInput.parentElement.parentElement.classList.remove('error');
+
+    if (!validaPlaca(placaInput.value)) {
+        placaInput.parentElement.parentElement.classList.add('error');
+        isValid = false;
+    } else placaInput.parentElement.parentElement.classList.remove('error');
+
+    confirmBtn.disabled = !isValid;
+    return isValid;
+}
+
+// ===== EVENT LISTENERS PARA FORMATAÇÃO =====
+nomeInput.addEventListener('input', validarFormulario);
+cpfInput.addEventListener('input', e => { e.target.value = formatCPF(e.target.value); validarFormulario(); });
+telefoneInput.addEventListener('input', e => { e.target.value = formatTelefone(e.target.value); validarFormulario(); });
+placaInput.addEventListener('input', e => { e.target.value = formatPlaca(e.target.value); validarFormulario(); });
+
+// ===== FUNÇÃO PRINCIPAL DE CONFIRMAÇÃO =====
+async function confirmarAgendamento() {
+    if (!validarFormulario()) {
+        alert('Por favor, preencha todos os campos corretamente.');
+        return;
+    }
+
+    // Verificar se os elementos de data/hora existem
+    const selectedDateEl = document.getElementById('selectedDate');
+    const selectedTimeEl = document.getElementById('selectedTime');
+    
+    if (!selectedDateEl || !selectedTimeEl) {
+        alert('Erro: Dados de agendamento não encontrados. Volte e selecione novamente.');
+        return;
+    }
+
+    const dadosCompletos = {
+        data: selectedDateEl.textContent || 'Data não informada',
+        horario: selectedTimeEl.textContent || 'Horário não informado',
+        nome: nomeInput.value.trim(),
+        cpf: cpfInput.value,
+        telefone: telefoneInput.value,
+        placa: placaInput.value.toUpperCase(),
+        servico: "Lavagem Completa",
+        valor: "R$ 35,00",
+        timestamp: new Date().toISOString()
+    };
+
+    console.log('Enviando dados:', dadosCompletos); // Debug
+    console.log('URL da requisição:', `${SMS_CONFIG.backendUrl}/salvar-agendamento`); // Debug
+
+    try {
+        confirmBtn.disabled = true;
+        confirmBtn.innerHTML = 'Confirmando...';
+
+        // Teste se a URL está correta
+        console.log('Fazendo requisição para:', `${SMS_CONFIG.backendUrl}/salvar-agendamento`);
+
+        const response = await fetch(`${SMS_CONFIG.backendUrl}/salvar-agendamento`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(dadosCompletos)
+        });
+
+        console.log('Resposta recebida:', response);
+        console.log('Status da resposta:', response.status); // Debug
+        console.log('URL final da requisição:', response.url); // Debug
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Erro HTTP:', response.status, errorText);
+            throw new Error(`Erro HTTP ${response.status}: ${errorText}`);
+        }
+
+        const result = await response.json();
+        console.log('Resposta do servidor:', result); // Debug
+
+        if (result.success) {
+            confirmBtn.innerHTML = 'Confirmado!';
+            mostrarPopupEEnviarSMS(dadosCompletos);
+        } else {
+            throw new Error(result.error || 'Erro ao salvar agendamento');
+        }
+
+    } catch (error) {
+        console.error('Erro completo:', error);
+        
+        // Mensagem de erro mais específica
+        let mensagemErro = 'Ocorreu um erro ao confirmar o agendamento.';
+        
+        if (error.name === 'TypeError' && error.message.includes('fetch')) {
+            mensagemErro += ' Verifique se o servidor está rodando.';
+        } else if (error.message.includes('CORS')) {
+            mensagemErro += ' Erro de CORS - servidor precisa ser configurado.';
+        } else {
+            mensagemErro += ` Detalhes: ${error.message}`;
+        }
+        
+        alert(mensagemErro);
+        
+        confirmBtn.disabled = false;
+        confirmBtn.innerHTML = 'Confirmar Agendamento';
+    }
+}
+
+// ===== POPUP E ENVIO SMS =====
+function mostrarPopupEEnviarSMS(dadosCompletos) {
+    dadosUltimoAgendamento = dadosCompletos;
+    
+    if (popupOverlay) {
+        popupOverlay.classList.add('show');
+        document.body.style.overflow = 'hidden';
+
+        const statusElement = document.getElementById('smsStatus');
+        if (statusElement) {
+            statusElement.className = 'sms-status sending';
+            statusElement.innerHTML = `<i class="ri-loader-4-line" style="animation: spin 1s linear infinite;"></i> Enviando SMS de confirmação...`;
+        }
+
+        const retryBtn = document.getElementById('retryBtn');
+        if (retryBtn) retryBtn.style.display = 'none';
+
+        enviarSMS(dadosCompletos);
+    }
+}
+
+async function enviarSMS(dadosCompletos) {
+    const statusElement = document.getElementById('smsStatus');
+    if (!statusElement) return;
+
+    try {
+        const telefoneFormatado = '+55' + dadosCompletos.telefone.replace(/\D/g, '');
+        const response = await fetch(`${SMS_CONFIG.backendUrl}/enviar-sms`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                nome: dadosCompletos.nome,
+                telefone: telefoneFormatado,
+                mensagem: `Olá ${dadosCompletos.nome},\nSeu agendamento do carro ${dadosCompletos.placa} foi confirmado!\n📅 Data: ${dadosCompletos.data}\n⏰ Horário: ${dadosCompletos.horario}\nServiço: ${dadosCompletos.servico}\nValor: ${dadosCompletos.valor}`
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || `HTTP ${response.status}`);
+        }
+
+        const resultado = await response.json();
+        if (resultado.success) {
+            statusElement.className = 'sms-status sent';
+            statusElement.innerHTML = `<i class="ri-check-circle-line"></i> SMS enviado com sucesso!`;
+            salvarLogSMS(telefoneFormatado, 'SMS enviado via Twilio', true);
+        } else {
+            throw new Error(resultado.error || 'Erro desconhecido do backend');
+        }
+
+    } catch (error) {
+        console.error('Erro no envio SMS:', error);
+        statusElement.className = 'sms-status error';
+        statusElement.innerHTML = `<i class="ri-error-warning-line"></i> Erro ao enviar SMS: ${error.message}`;
+        
+        const retryBtn = document.getElementById('retryBtn');
+        if (retryBtn) retryBtn.style.display = 'block';
+        
+        salvarLogSMS(dadosCompletos.telefone, 'Erro no envio', false, error.message);
+    }
+}
+
+// ===== RETRY =====
+function tentarEnviarNovamente() {
+    if (!dadosUltimoAgendamento) return;
+    
+    const statusElement = document.getElementById('smsStatus');
+    const retryBtn = document.getElementById('retryBtn');
+    
+    if (statusElement) {
+        statusElement.className = 'sms-status sending';
+        statusElement.innerHTML = `<i class="ri-loader-4-line" style="animation: spin 1s linear infinite;"></i> Tentando enviar novamente...`;
+    }
+    
+    if (retryBtn) retryBtn.style.display = 'none';
+    
+    setTimeout(() => enviarSMS(dadosUltimoAgendamento), 500);
+}
+
+// ===== LOG =====
+function salvarLogSMS(telefone, mensagem, sucesso, erro = null) {
+    try {
+        const logs = JSON.parse(localStorage.getItem('smsLogs') || '[]');
+        logs.push({ 
+            timestamp: new Date().toISOString(), 
+            telefone, 
+            mensagem, 
+            sucesso, 
+            erro, 
+            id: Date.now() 
+        });
+        
+        if (logs.length > 50) logs.splice(0, logs.length - 50);
+        localStorage.setItem('smsLogs', JSON.stringify(logs));
+    } catch (error) {
+        console.error('Erro ao salvar log SMS:', error);
+    }
+}
+
+// ===== POPUP =====
+function fecharPopup() { 
+    if (popupOverlay) {
+        popupOverlay.classList.remove('show'); 
+        document.body.style.overflow = 'auto'; 
+    }
+}
+
+function voltarAgendamento() { 
+    if (confirm('Deseja voltar para alterar o horário?')) {
+        window.location.href = 'index.html'; 
+    }
+}
+
+// ===== CARREGAR DADOS =====
+function carregarDadosAgendamento() {
+    try {
+        const dadosSalvos = JSON.parse(localStorage.getItem('agendamentoData') || '{}');
+        
+        const selectedDateEl = document.getElementById('selectedDate');
+        const selectedTimeEl = document.getElementById('selectedTime');
+        
+        if (dadosSalvos.dia && selectedDateEl) {
+            selectedDateEl.textContent = `${dadosSalvos.dia} de ${dadosSalvos.mes}, ${dadosSalvos.diaSemana}`;
+        }
+        
+        if (dadosSalvos.horarioInicio && selectedTimeEl) {
+            selectedTimeEl.textContent = `${dadosSalvos.horarioInicio} - ${dadosSalvos.horarioFim} (1h 15min)`;
+        }
+    } catch (error) {
+        console.error('Erro ao carregar dados do agendamento:', error);
+    }
+}
+
+// ===== INICIALIZAÇÃO =====
+document.addEventListener('DOMContentLoaded', () => {
+    carregarDadosAgendamento();
+    validarFormulario();
+    
+    // Tornar funções disponíveis globalmente
+    window.tentarEnviarNovamente = tentarEnviarNovamente;
+    window.fecharPopup = fecharPopup;
+    window.voltarAgendamento = voltarAgendamento;
+});
+
+// ===== PREVENIR SUBMIT DUPLO =====
+let enviandoFormulario = false;
+
+if (form) {
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        if (!enviandoFormulario) {
+            enviandoFormulario = true;
+            confirmarAgendamento().finally(() => {
+                enviandoFormulario = false;
+            });
+        }
+    });
+}
+
+console.log('📱 Sistema de SMS carregado e pronto!');
+    </script>
+
+
+
+</body>
+
+</html>
