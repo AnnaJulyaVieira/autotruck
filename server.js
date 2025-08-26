@@ -46,6 +46,10 @@ app.use((req, res, next) => {
     next();
 });
 
+app.get('/horario.html', (req, res) => {
+  res.sendFile(path.join(__dirname, 'horario.html'));
+});
+
 app.get('/confirma.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'confirma.html'));
 });
